@@ -1,0 +1,727 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark\n\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.Row\nimport org.apache.spark.mllib.feature.{StandardScaler, StandardScalerModel}\nimport org.apache.spark.ml.feature.VectorAssembler\nimport org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForestRegressor}\nimport org.apache.spark.ml.regression.{GBTRegressionModel, GBTRegressor}\nimport org.apache.spark.ml.evaluation.RegressionEvaluator\nimport org.apache.spark.ml.Pipeline",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 03:10:17.742",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.Row\nimport org.apache.spark.mllib.feature.{StandardScaler, StandardScalerModel}\nimport org.apache.spark.ml.feature.VectorAssembler\nimport org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForestRegressor}\nimport org.apache.spark.ml.regression.{GBTRegressionModel, GBTRegressor}\nimport org.apache.spark.ml.evaluation.RegressionEvaluator\nimport org.apache.spark.ml.Pipeline\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1554747683396_283663976",
+      "id": "20190408-142123_512475321",
+      "dateCreated": "2019-04-08 14:21:23.396",
+      "dateStarted": "2019-04-14 03:10:17.758",
+      "dateFinished": "2019-04-14 03:10:17.836",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\nval spark \u003d org.apache.spark.sql.SparkSession.builder\n        .master(\"local\")\n        .appName(\"HousePrice\")\n        .getOrCreate;",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 01:30:23.825",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "spark: org.apache.spark.sql.SparkSession \u003d org.apache.spark.sql.SparkSession@373a3782\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1554748121005_-63165476",
+      "id": "20190408-142841_2053021250",
+      "dateCreated": "2019-04-08 14:28:41.005",
+      "dateStarted": "2019-04-14 01:30:27.285",
+      "dateFinished": "2019-04-14 01:30:37.842",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n val df \u003d spark.read\n         .format(\"csv\")\n         .option(\"header\", \"true\") //first line in file has headers\n         .option(\"inferSchema\", \"true\")\n         .option(\"mode\", \"DROPMALFORMED\")\n         .load(\"/home/wei/Downloads/kc_house_data.csv\")",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 01:54:59.964",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df: org.apache.spark.sql.DataFrame \u003d [id: bigint, date: string ... 19 more fields]\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://192.168.1.223:4040/jobs/job?id\u003d5",
+            "http://192.168.1.223:4040/jobs/job?id\u003d6"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1554748132807_159729493",
+      "id": "20190408-142852_1980760114",
+      "dateCreated": "2019-04-08 14:28:52.807",
+      "dateStarted": "2019-04-14 01:54:59.978",
+      "dateFinished": "2019-04-14 01:55:00.802",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\ndf.show(5)",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 01:55:03.986",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+----------+---------------+------+--------+---------+-----------+--------+------+----------+----+---------+-----+----------+-------------+--------+------------+-------+-------+--------+-------------+----------+\n|        id|           date| price|bedrooms|bathrooms|sqft_living|sqft_lot|floors|waterfront|view|condition|grade|sqft_above|sqft_basement|yr_built|yr_renovated|zipcode|    lat|    long|sqft_living15|sqft_lot15|\n+----------+---------------+------+--------+---------+-----------+--------+------+----------+----+---------+-----+----------+-------------+--------+------------+-------+-------+--------+-------------+----------+\n|7129300520|20141013T000000|221900|       3|      1.0|       1180|    5650|   1.0|         0|   0|        3|    7|      1180|            0|    1955|           0|  98178|47.5112|-122.257|         1340|      5650|\n|6414100192|20141209T000000|538000|       3|     2.25|       2570|    7242|   2.0|         0|   0|        3|    7|      2170|          400|    1951|        1991|  98125| 47.721|-122.319|         1690|      7639|\n|5631500400|20150225T000000|180000|       2|      1.0|        770|   10000|   1.0|         0|   0|        3|    6|       770|            0|    1933|           0|  98028|47.7379|-122.233|         2720|      8062|\n|2487200875|20141209T000000|604000|       4|      3.0|       1960|    5000|   1.0|         0|   0|        5|    7|      1050|          910|    1965|           0|  98136|47.5208|-122.393|         1360|      5000|\n|1954400510|20150218T000000|510000|       3|      2.0|       1680|    8080|   1.0|         0|   0|        3|    8|      1680|            0|    1987|           0|  98074|47.6168|-122.045|         1800|      7503|\n+----------+---------------+------+--------+---------+-----------+--------+------+----------+----+---------+-----+----------+-------------+--------+------------+-------+-------+--------+-------------+----------+\nonly showing top 5 rows\n\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://192.168.1.223:4040/jobs/job?id\u003d7"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1554748176952_-2043467363",
+      "id": "20190408-142936_1957204287",
+      "dateCreated": "2019-04-08 14:29:36.952",
+      "dateStarted": "2019-04-14 01:55:04.012",
+      "dateFinished": "2019-04-14 01:55:04.404",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\nval columns \u003d Seq(\"price\", \"bedrooms\", \"floors\", \"grade\", \"lat\", \"sqft_living\", \"view\")\nval data \u003d df.select(log(df(\"price\")).as(\"label\") , df(\"bedrooms\"), df(\"floors\"), df(\"grade\"), df(\"lat\"), log(df(\"sqft_living\")).as(\"sqft_living\"), df(\"view\"))\ndata.show(5)",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 01:55:08.560",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------------------+--------+------+-----+-------+-----------------+----+\n|             label|bedrooms|floors|grade|    lat|      sqft_living|view|\n+------------------+--------+------+-----+-------+-----------------+----+\n|12.309982108920686|       3|   1.0|    7|47.5112| 7.07326971745971|   0|\n|13.195613839143922|       3|   2.0|    7| 47.721|7.851661177889265|   0|\n|12.100712129872347|       2|   1.0|    6|47.7379|6.646390514847729|   0|\n|13.311329476916953|       4|   1.0|    7|47.5208|7.580699752224563|   0|\n|13.142166004700508|       3|   1.0|    8|47.6168|7.426549072397305|   0|\n+------------------+--------+------+-----+-------+-----------------+----+\nonly showing top 5 rows\n\ncolumns: Seq[String] \u003d List(price, bedrooms, floors, grade, lat, sqft_living, view)\ndata: org.apache.spark.sql.DataFrame \u003d [label: double, bedrooms: int ... 5 more fields]\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://192.168.1.223:4040/jobs/job?id\u003d8"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1554748244677_1359042940",
+      "id": "20190408-143044_1121793173",
+      "dateCreated": "2019-04-08 14:30:44.677",
+      "dateStarted": "2019-04-14 01:55:08.580",
+      "dateFinished": "2019-04-14 01:55:09.000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\nval Array(training, test) \u003d data.randomSplit(Array(0.7, 0.3))\ntraining.show(5)",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 03:16:59.702",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------------------+--------+------+-----+-------+-----------------+----+\n|             label|bedrooms|floors|grade|    lat|      sqft_living|view|\n+------------------+--------+------+-----+-------+-----------------+----+\n|11.302204433654575|       2|   1.0|    5|47.4808|6.593044534142437|   0|\n|11.314474526246391|       3|   1.0|    6|47.4987|6.756932389247553|   0|\n|11.320553572322773|       2|   1.0|    5|47.4799|6.253828811575473|   0|\n|11.326595886778735|       2|   1.0|    5|47.4727|6.802394763324311|   0|\n| 11.33857207782545|       2|   1.0|    6|47.4752|6.551080335043404|   0|\n+------------------+--------+------+-----+-------+-----------------+----+\nonly showing top 5 rows\n\ntraining: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [label: double, bedrooms: int ... 5 more fields]\ntest: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [label: double, bedrooms: int ... 5 more fields]\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://192.168.1.223:4040/jobs/job?id\u003d4579"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1554748765570_171798862",
+      "id": "20190408-143925_259797406",
+      "dateCreated": "2019-04-08 14:39:25.570",
+      "dateStarted": "2019-04-14 03:16:59.724",
+      "dateFinished": "2019-04-14 03:17:00.166",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\ndef buildPipeline() \u003d {\n    val assembler \u003d new VectorAssembler().setInputCols(Array(\"bedrooms\", \"floors\", \"grade\", \"lat\", \"sqft_living\", \"view\")).setOutputCol(\"features\")\n    //val rf \u003d new RandomForestRegressor().setLabelCol(\"label\").setFeaturesCol(\"features\").setNumTrees(40).setMaxBins(36).setMaxDepth(14)\n    val gb \u003d new GBTRegressor().setLabelCol(\"label\").setFeaturesCol(\"features\").setMaxIter(40)\n    val pipeline \u003d new Pipeline().setStages(Array(assembler, gb))\n    pipeline\n}",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 03:21:37.098",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "buildPipeline: ()org.apache.spark.ml.Pipeline\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1554753055879_2045595398",
+      "id": "20190408-155055_1324869994",
+      "dateCreated": "2019-04-08 15:50:55.879",
+      "dateStarted": "2019-04-14 03:21:37.106",
+      "dateFinished": "2019-04-14 03:21:37.254",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nval model \u003d buildPipeline().fit(training)\nval predictions \u003d model.transform(test)\n\nval originalPrice \u003d predictions.select(exp($\"prediction\").as(\"prediction\"), exp($\"label\").as(\"label\"), $\"features\")\n\nval evaluator \u003d new RegressionEvaluator().setLabelCol(\"label\").setPredictionCol(\"prediction\").setMetricName(\"rmse\")\n\nval rmse \u003d evaluator.evaluate(originalPrice)\nprintln(s\"Root Mean Squared Error (RMSE) on test data \u003d $rmse\")\n\nval r2evaluator \u003d new RegressionEvaluator().setLabelCol(\"label\").setPredictionCol(\"prediction\").setMetricName(\"r2\")\n\nval r2 \u003d r2evaluator.evaluate(originalPrice)\nprintln(s\"R squared error on test data \u003d $r2\")",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 03:21:38.611",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Root Mean Squared Error (RMSE) on test data \u003d 175932.14050180902\nR squared error on test data \u003d 0.7786743455013603\nmodel: org.apache.spark.ml.PipelineModel \u003d pipeline_4963d50b5aa6\npredictions: org.apache.spark.sql.DataFrame \u003d [label: double, bedrooms: int ... 7 more fields]\noriginalPrice: org.apache.spark.sql.DataFrame \u003d [prediction: double, label: double ... 1 more field]\nevaluator: org.apache.spark.ml.evaluation.RegressionEvaluator \u003d regEval_213f94028d8d\nrmse: Double \u003d 175932.14050180902\nr2evaluator: org.apache.spark.ml.evaluation.RegressionEvaluator \u003d regEval_7a687f719fd5\nr2: Double \u003d 0.7786743455013603\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://192.168.1.223:4040/jobs/job?id\u003d4672",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4673",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4674",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4675",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4676",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4677",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4678",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4679",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4680",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4681",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4682",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4683",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4684",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4685",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4686",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4687",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4688",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4689",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4690",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4691",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4692",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4693",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4694",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4695",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4696",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4697",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4698",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4699",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4700",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4701",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4702",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4703",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4704",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4705",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4706",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4707",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4708",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4709",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4710",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4711",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4712",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4713",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4714",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4715",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4716",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4717",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4718",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4719",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4720",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4721",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4722",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4723",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4724",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4725",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4726",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4727",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4728",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4729",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4730",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4731",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4732",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4733",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4734",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4735",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4736",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4737",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4738",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4739",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4740",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4741",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4742",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4743",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4744",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4745",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4746",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4747",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4748",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4749",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4750",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4751",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4752",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4753",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4754",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4755",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4756",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4757",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4758",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4759",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4760",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4761",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4762",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4763",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4764",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4765",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4766",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4767",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4768",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4769",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4770",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4771",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4772",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4773",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4774",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4775",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4776",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4777",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4778",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4779",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4780",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4781",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4782",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4783",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4784",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4785",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4786",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4787",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4788",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4789",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4790",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4791",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4792",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4793",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4794",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4795",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4796",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4797",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4798",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4799",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4800",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4801",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4802",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4803",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4804",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4805",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4806",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4807",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4808",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4809",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4810",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4811",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4812",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4813",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4814",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4815",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4816",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4817",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4818",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4819",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4820",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4821",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4822",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4823",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4824",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4825",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4826",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4827",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4828",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4829",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4830",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4831",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4832",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4833",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4834",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4835",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4836",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4837",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4838",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4839",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4840",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4841",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4842",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4843",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4844",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4845",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4846",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4847",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4848",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4849",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4850",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4851",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4852",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4853",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4854",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4855",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4856",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4857",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4858",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4859",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4860",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4861",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4862",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4863",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4864",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4865",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4866",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4867",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4868",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4869",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4870",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4871",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4872",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4873",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4874",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4875",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4876",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4877",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4878",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4879",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4880",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4881",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4882",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4883",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4884",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4885",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4886",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4887",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4888",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4889",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4890",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4891",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4892",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4893",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4894",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4895",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4896",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4897",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4898",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4899",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4900",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4901",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4902",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4903",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4904",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4905",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4906",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4907",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4908",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4909",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4910",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4911",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4912",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4913",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4914",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4915",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4916",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4917",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4918",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4919",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4920",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4921",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4922",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4923",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4924",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4925",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4926",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4927",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4928",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4929",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4930",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4931",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4932",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4933",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4934",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4935",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4936",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4937",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4938",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4939",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4940",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4941",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4942",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4943",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4944",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4945",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4946",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4947",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4948",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4949",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4950",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4951",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4952",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4953",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4954",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4955",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4956",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4957",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4958",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4959",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4960",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4961",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4962",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4963",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4964",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4965",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4966",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4967",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4968",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4969",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4970",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4971",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4972",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4973",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4974",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4975",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4976",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4977",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4978",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4979",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4980",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4981",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4982",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4983",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4984",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4985",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4986",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4987",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4988",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4989",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4990",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4991",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4992",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4993",
+            "http://192.168.1.223:4040/jobs/job?id\u003d4994"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1555222400620_-1438141235",
+      "id": "20190414-021320_1965027550",
+      "dateCreated": "2019-04-14 02:13:20.620",
+      "dateStarted": "2019-04-14 03:21:38.634",
+      "dateFinished": "2019-04-14 03:21:51.201",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-14 02:16:02.238",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1555222562238_657654438",
+      "id": "20190414-021602_1694986707",
+      "dateCreated": "2019-04-14 02:16:02.238",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "HousePriceScala",
+  "id": "2EAX3UMRJ",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -20,6 +20,23 @@ class HousePriceSpec extends FlatSpec with Matchers with BeforeAndAfter {
 
   behavior of "Training"
 
+  "The dataset" should "not be null" in {
+    val data = ModelUtil.loadFile(spark, "kc_house_data.csv")
+    assert(data.count() == 21613)
+  }
+
+  "The train data" should "not be null" in {
+    val data = ModelUtil.loadFile(spark, "kc_house_data.csv")
+    val train = ModelUtil.trainTestSplit(data)(0)
+    assert(train.count() > 0)
+  }
+
+  "The test data" should "not be null" in {
+    val data = ModelUtil.loadFile(spark, "kc_house_data.csv")
+    val test = ModelUtil.trainTestSplit(data)(1)
+    assert(test.count() > 0)
+  }
+
   "Execution time" should "with in 3 seconds" in {
     val t0 = System.currentTimeMillis()
     val data = ModelUtil.loadFile(spark, "kc_house_data.csv")
@@ -38,7 +55,7 @@ class HousePriceSpec extends FlatSpec with Matchers with BeforeAndAfter {
       .option("header", "true") //first line in file has headers
       .option("inferSchema", "true")
       .option("mode", "DROPMALFORMED")
-      .load("../kc_house_data.csv")
+      .load("kc_house_data.csv")
     val data = df.select(log(df("price")).as("label") , df("bedrooms"), df("floors"), df("grade"), df("lat"), log(df("sqft_living")).as("sqft_living"), df("view"))
 
     val Array(train, test) = data.randomSplit(Array(0.6, 0.4))
@@ -56,7 +73,7 @@ class HousePriceSpec extends FlatSpec with Matchers with BeforeAndAfter {
       .option("header", "true") //first line in file has headers
       .option("inferSchema", "true")
       .option("mode", "DROPMALFORMED")
-      .load("../kc_house_data.csv")
+      .load("kc_house_data.csv")
     val data = df.select(log(df("price")).as("label") , df("bedrooms"), df("floors"), df("grade"), df("lat"), log(df("sqft_living")).as("sqft_living"), df("view"))
 
     val Array(train, test) = data.randomSplit(Array(0.6, 0.4))

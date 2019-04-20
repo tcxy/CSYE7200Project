@@ -13,7 +13,7 @@ object HousePrice extends App {
       .getOrCreate;
 
     val data = ModelUtil.loadFile(spark, "kc_house_data.csv")
-    val Array(train, test) = data.randomSplit(Array(0.7, 0.3))
+    val Array(train, test) = ModelUtil.trainTestSplit(data)
 
     val pipeline = ModelUtil.buildPipeline()
     val predictions = ModelUtil.fitAndTransform(pipeline, train, test)

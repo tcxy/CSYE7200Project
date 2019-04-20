@@ -17,6 +17,8 @@ object ModelUtil {
     dataIngest(df)
   }
 
+  def trainTestSplit(df: DataFrame) = df.randomSplit(Array(0.6,0.4))
+
   def dataIngest(df: DataFrame) = df.select(log(df("price")).as("label") , df("bedrooms"), df("floors"), df("grade"), df("lat"), log(df("sqft_living")).as("sqft_living"), df("view"))
 
   def buildPipeline() = {

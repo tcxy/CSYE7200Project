@@ -1,4 +1,4 @@
-import neu.coe.csye.HousePrice.{buildPipeline, evaluateRMS, evaluateRSquare}
+import neu.coe.csye.Utils.{EvaluateUtil, ModelUtil}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.log
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
@@ -22,18 +22,11 @@ class HousePriceSpec extends FlatSpec with Matchers with BeforeAndAfter {
 
   "Execution time" should "with in 3 seconds" in {
     val t0 = System.currentTimeMillis()
-
-    val df = spark.read
-      .format("csv")
-      .option("header", "true") //first line in file has headers
-      .option("inferSchema", "true")
-      .option("mode", "DROPMALFORMED")
-      .load("../kc_house_data.csv")
-    val data = df.select(log(df("price")).as("label") , df("bedrooms"), df("floors"), df("grade"), df("lat"), log(df("sqft_living")).as("sqft_living"), df("view"))
+    val data = ModelUtil.loadFile(spark, "kc_house_data.csv")
 
     val Array(train, test) = data.randomSplit(Array(0.6, 0.4))
 
-    val pipeline = buildPipeline()
+    val pipeline = ModelUtil.buildPipeline()
     val model = pipeline.fit(train)
     val t1 = System.currentTimeMillis()
     assert((t1-t0) <= 3000)
@@ -50,11 +43,11 @@ class HousePriceSpec extends FlatSpec with Matchers with BeforeAndAfter {
 
     val Array(train, test) = data.randomSplit(Array(0.6, 0.4))
 
-    val pipeline = buildPipeline()
+    val pipeline = ModelUtil.buildPipeline()
     val model = pipeline.fit(train)
     val predictions = model.transform(test)
-    println(evaluateRMS(predictions))
-    assert(evaluateRMS(predictions)<= 180000)
+
+    assert(EvaluateUtil.evaluateRMS(predictions)<= 180000)
   }
 
   "R-Sqaured" should "larger than 0.7" in {
@@ -68,10 +61,9 @@ class HousePriceSpec extends FlatSpec with Matchers with BeforeAndAfter {
 
     val Array(train, test) = data.randomSplit(Array(0.6, 0.4))
 
-    val pipeline = buildPipeline()
+    val pipeline = ModelUtil.buildPipeline()
     val model = pipeline.fit(train)
-    val predicitons = model.transform(test)
-    println(evaluateRSquare(predicitons))
-    assert(evaluateRSquare(predicitons) >= 0.7)
+    val predictions = model.transform(test)
+    assert(EvaluateUtil.evaluateRSquare(predictions) >= 0.7)
   }
 }
